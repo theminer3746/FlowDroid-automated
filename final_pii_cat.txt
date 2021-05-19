@@ -1,0 +1,18 @@
+getAdvertisingIdInfo,Advertiser ID
+getDeviceId,Android ID
+getMacAddress,MAC Address
+getSSID,MAC Address
+getAddress,MAC Address
+getImei,IMEI
+getSimSerialNumber,ICCID
+getLine1Number,Phone Number
+getLac,Location Area Code
+getSubscriberId,IMSI
+getCid,GSM Cell ID
+getCountry,Country
+getAccounts,Account
+getLookupUri,Contract Book
+getTimeZone,Time Zone
+getLatitude,GPS
+getLongitude,GPS
+getLastKnownLocation,GPS
