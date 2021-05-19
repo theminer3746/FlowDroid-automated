@@ -168,7 +168,7 @@ try:
 
     # print(result)
     payload = dict()
-    payload['status'] = 'success',
+    payload['status'] = 'success'
     payload['appInfo'] = {
         'applicationId' : args.app_id,
         'version' : version_name,
