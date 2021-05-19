@@ -119,6 +119,7 @@ try:
         "static-Contract Book",
         "static-Country",
         "static-Credit Card",
+        "static-Date Of Birth",
         "static-Email",
         "static-Gender",
         "static-Name",
