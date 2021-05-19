@@ -4,7 +4,7 @@ import time
 from subprocess import Popen, PIPE 
 
 apk_path = "../vulpix-runner/automated-gui-tester/apk"
-log_path = "new_log"
+log_path = "final_log"
 
 def flowDroid(apk):
     start_time = time.time()
