@@ -7,6 +7,7 @@ from subprocess import Popen, PIPE
 from dotenv import load_dotenv, find_dotenv
 import requests as req
 import json
+import re
 
 try:
     load_dotenv(find_dotenv())
