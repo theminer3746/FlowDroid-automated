@@ -171,9 +171,9 @@ try:
     payload['appInfo'] = {
         'applicationId' : args.app_id,
         'version' : version_name,
-        'result' : result,
     }
-    payload['testing_methods'] = 'STATIC_ONLY'
+    payload['result'] = result
+    payload['testingMethods'] = 'STATIC_ONLY'
     print(payload)
 
 
