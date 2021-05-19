@@ -136,6 +136,41 @@ try:
         "static-GPS"
     ]
 
+    pii_list_rename = [
+        "advertiserId",
+		"androidId",
+		"deviceSerialNumber",
+		"googleServicesId",
+		"imei",
+		"macAddress",
+		"cellId",
+		"simSerialNumber",
+		"imsi",
+		"localAreaCode",
+		"phoneNumber",
+		"age",
+		"audioRecording",
+		"calendar",
+		"contactBook",
+		"country",
+		"ccv",
+		"dob",
+		"email",
+		"gender",
+		"name",
+		"password",
+		"photo",
+		"physicalAddress",
+		"relationshipStatus",
+		"sms",
+		"ssn",
+		"timezone",
+		"username",
+		"video",
+		"webBrowsingLog",
+		"gps"
+    ]
+
     def getLeaks(final_cat_log_content):
         ans = ["0" for a in pii_list]
         for line in final_cat_log_content:
@@ -145,7 +180,7 @@ try:
         return ans
 
     result = getLeaks(final_cat_log_content)
-    result = dict(zip(pii_list, result))
+    result = dict(zip(pii_list_rename, result))
 
 
     def getVersionName(package_name):
