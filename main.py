@@ -24,7 +24,7 @@ try:
 
 
     # Pipeline
-    apk_path = os.environ.get("APK_PATH", "../vulpix-runner/automated-gui-tester/apk")
+    apk_path = os.environ.get("APK_PATH", "../automated-gui-tester/apk")
     log_path = "final_log"
 
     def flowDroid(apk):
