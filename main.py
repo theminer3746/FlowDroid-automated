@@ -20,7 +20,7 @@ try:
                     type=str, help='Endpoint at which the result will be sent (Example: http://127.0.0.1:80/sendResult)', default=None)
 
     parser.add_argument('--timeout', metavar='timeout',
-                    type=int, help='Maximum execution time', default=120)
+                    type=str, help='Maximum execution time', default=120)
 
 
     if __name__ == '__main__':
