@@ -54,6 +54,11 @@ def getNewLog(log_file):
     out_fp.close()
 
 
+for apk in os.listdir(log_path):
+    print(apk)
+    getNewLog(apk)
+fp.close()
+
 fp = open("cat_flowdroid_final.csv","w")
 fp.write("apk,DEVICE,SIM,USER,LOCATION,LEAK\n")
 for apk in os.listdir(new_log_path):
