@@ -62,89 +62,28 @@ fp.close()
 def getNewLogFileContent(flowDroid_log):
     new_log_file_content = []
     
-    # in_fp = open(os.path.join(log_path, log_file), "r", encoding = "utf-8")
-    # out_fp = open(os.path.join(new_log_path, log_file), "w", encoding = "utf-8")
     for line in flowDroid_log:
         if len(line.split("- -")) > 1:
-            # out_fp.write(line.split("- - ")[1].split(" in method")[0]+"\n")
             new_log_file_content.append(line.split("- - ")[1].split(" in method")[0])
-    # in_fp.close()
-    # out_fp.close()
 
     return new_log_file_content
 
 
 def getFinalCatLogContent(new_log_file_content):
-    # ans = {}
-    # ans["DEVICE"] = "0"
-    # ans["SIM"] = "0"
-    # ans["USER"] = "0"
-    # ans["LOCATION"] = "0"
-    # ans["LEAK"] = "0"
     final_cat_log_content = []
-    # out_fp = open(os.path.join(cat_log_path, log_file), "w", encoding = "utf-8")
     for line in new_log_file_content:
         for k,v in method.items():
             if k in line:
-                # ans["LEAK"] = "1"
-                # ans[v] = "1"
                 if cat_method[k] == "Account":
                     final_cat_log_content.append("Username")
                     final_cat_log_content.append("Email")
                     final_cat_log_content.append("Password")
                 else:
                     final_cat_log_content.append(cat_method[k])
-    # in_fp.close()
-    # out_fp.close()
+
 
     return final_cat_log_content
 
-
-
-
-# def classifyMethod(log_file):
-#     in_fp = open(os.path.join(new_log_path, log_file), "r", encoding = "utf-8")
-#     # ans = {}
-#     # ans["DEVICE"] = "0"
-#     # ans["SIM"] = "0"
-#     # ans["USER"] = "0"
-#     # ans["LOCATION"] = "0"
-#     # ans["LEAK"] = "0"
-#     out_fp = open(os.path.join(cat_log_path, log_file), "w", encoding = "utf-8")
-#     for line in in_fp:
-#         for k,v in method.items():
-#             if k in line:
-#                 # ans["LEAK"] = "1"
-#                 # ans[v] = "1"
-#                 if cat_method[k] == "Account":
-#                     out_fp.write("Username\nEmail\nPassword\n")
-#                 else:
-#                     out_fp.write(cat_method[k]+"\n")
-#     in_fp.close()
-#     out_fp.close()
-#     # fp.write(log_file[:len(log_file)-4]+","+ans["DEVICE"]+","+ans["SIM"]+","+ans["USER"]+","+ans["LOCATION"]+","+ans["LEAK"]+"\n")
-
-
-# def getNewLog(log_file):
-#     in_fp = open(os.path.join(log_path, log_file), "r", encoding = "utf-8")
-#     out_fp = open(os.path.join(new_log_path, log_file), "w", encoding = "utf-8")
-#     for line in in_fp:
-#         if len(line.split("- -")) > 1:
-#             out_fp.write(line.split("- - ")[1].split(" in method")[0]+"\n")
-#     in_fp.close()
-#     out_fp.close()
-
-# for apk in os.listdir(log_path):
-#     print(apk)
-#     getNewLog(apk)
-# fp.close()
-
-# fp = open("cat_flowdroid_final.csv","w")
-# fp.write("apk,DEVICE,SIM,USER,LOCATION,LEAK\n")
-# for apk in os.listdir(new_log_path):
-#     print(apk)
-#     classifyMethod(apk)
-# fp.close()
 
 new_log_file_content = getNewLogFileContent(flowDroid_log)
 final_cat_log_content = getFinalCatLogContent(new_log_file_content)
@@ -189,23 +128,14 @@ pii_list = [
 ]
 
 def getLeaks(final_cat_log_content):
-    # in_fp = open(os.path.join(log_path,log_file),"r",encoding = "utf-8")
     ans = ["0" for a in pii_list]
     for line in final_cat_log_content:
         pii = line.strip()
         ans[pii_list.index("static-"+pii)] = "1"
-    # in_fp.close()
-    # fp.write(log_file[:len(log_file)-4]+","+",".join(ans)+"\n")
 
     return ans
 
 result = getLeaks(final_cat_log_content)
 print(result)
 print(dict(zip(pii_list, result)))
-
-# fp = open("detail_static.csv","w")
-# fp.write("apk,"+",".join(pii_list)+"\n")
-# for file in os.listdir(log_path):
-#     classifyMethod(file)
-# fp.close()
 
