@@ -40,6 +40,7 @@ try:
             "-p", "/home/theminer3746/Android/Sdk/platforms",
             "-s", "mergeSuSi.txt",
             "-ct", args.timeout]
+        print(*command)
         p = Popen(command, stdin=PIPE, stdout=PIPE, stderr=PIPE)
         output, err = p.communicate() 
         rc = p.returncode
