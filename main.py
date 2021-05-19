@@ -19,6 +19,9 @@ try:
     parser.add_argument('--endpoint', metavar='endpoint',
                     type=str, help='Endpoint at which the result will be sent (Example: http://127.0.0.1:80/sendResult)', default=None)
 
+    parser.add_argument('--timeout', metavar='timeout',
+                    type=int, help='Maximum execution time', default=120)
+
 
     if __name__ == '__main__':
         args = parser.parse_args()
@@ -30,7 +33,14 @@ try:
 
     def flowDroid(apk):
         start_time = time.time()
-        p = Popen(["java", "-jar", "soot-infoflow-cmd-jar-with-dependencies.jar", "-a", os.path.join(apk_path, f"{apk}.apk"), "-p", "/home/theminer3746/Android/Sdk/platforms", "-s", "mergeSuSi.txt", "-ct", "120"], stdin=PIPE, stdout=PIPE, stderr=PIPE)
+        command = [
+            "java",
+            "-jar", "soot-infoflow-cmd-jar-with-dependencies.jar",
+            "-a", os.path.join(apk_path, f"{apk}.apk"),
+            "-p", "/home/theminer3746/Android/Sdk/platforms",
+            "-s", "mergeSuSi.txt",
+            "-ct", args.timeout]
+        p = Popen(command, stdin=PIPE, stdout=PIPE, stderr=PIPE)
         output, err = p.communicate() 
         rc = p.returncode
         finish_time = time.time()
