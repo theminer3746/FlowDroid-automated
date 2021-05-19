@@ -187,4 +187,5 @@ try:
 
 except:
     print("An exception occurred")
+    raise # Remove in prod
     sys.exit(1)
