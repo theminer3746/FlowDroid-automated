@@ -5,6 +5,7 @@ import sys
 import time
 from subprocess import Popen, PIPE
 from dotenv import load_dotenv, find_dotenv
+import requests as req
 
 try:
     load_dotenv(find_dotenv())
@@ -12,6 +13,10 @@ try:
     parser = argparse.ArgumentParser()
     parser.add_argument('app_id', metavar='app_id', type=str,
                         help='Application identifier')
+
+    parser.add_argument('--endpoint', metavar='endpoint',
+                    type=str, help='Endpoint at which the result will be sent (Example: http://127.0.0.1:80/sendResult)', default=None)
+
 
     if __name__ == '__main__':
         args = parser.parse_args()
@@ -23,7 +28,7 @@ try:
 
     def flowDroid(apk):
         start_time = time.time()
-        p = Popen(["java", "-jar", "soot-infoflow-cmd-jar-with-dependencies.jar", "-a", os.path.join(apk_path, apk), "-p", "/home/theminer3746/Android/Sdk/platforms", "-s", "mergeSuSi.txt", "-ct", "120"], stdin=PIPE, stdout=PIPE, stderr=PIPE)
+        p = Popen(["java", "-jar", "soot-infoflow-cmd-jar-with-dependencies.jar", "-a", os.path.join(apk_path, f"{apk}.apk"), "-p", "/home/theminer3746/Android/Sdk/platforms", "-s", "mergeSuSi.txt", "-ct", "120"], stdin=PIPE, stdout=PIPE, stderr=PIPE)
         output, err = p.communicate() 
         rc = p.returncode
         finish_time = time.time()
@@ -137,8 +142,45 @@ try:
         return ans
 
     result = getLeaks(final_cat_log_content)
-    print(result)
-    print(dict(zip(pii_list, result)))
+    result = dict(zip(pii_list, result))
+
+
+    def getVersionName(package_name):
+        cmd = ["aapt", "dump", "badging", os.path.join(apk_path, f"{package_name}.apk")]
+
+        p = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+        output, err = p.communicate()
+        out = output.decode("utf-8").strip()
+
+        versionName = None
+
+        for line in out.split('\n'):
+            line = line.strip()
+            if 'versionName=' in line:
+                version_search = re.search("versionName=\'(.*?)\'", line)
+                if version_search:
+                    return version_search.group(1)
+
+    version_name = getVersionName(args.app_id)
+
+    # print(result)
+    payload = dict()
+    payload['status'] = 'success',
+    payload['appInfo'] = {
+        'applicationId' : args.app_id,
+        'version' : version_name,
+        'result' : result,
+    }
+    payload['testing_methods'] = 'STATIC_ONLY'
+    print(payload)
+
+
+    if args.endpoint:
+        res = req.post(args.endpoint, json=payload)
+    else:
+        print('-----BEGIN JSON OUTPUT-----')
+        print(json.dumps(payload))
+        print('-----END JSON OUTPUT-----')
 
     sys.exit(0)
 
