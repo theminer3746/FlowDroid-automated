@@ -186,7 +186,7 @@ try:
 
     sys.exit(0)
 
-except:
+except Exception as e:
     print("An exception occurred")
-    raise # Remove in prod
+    print(e)
     sys.exit(1)
