@@ -13,7 +13,7 @@ def flowDroid(apk):
     rc = p.returncode
     finish_time = time.time()
     time_lapsed = finish_time - start_time
-    fp = open(log_path + "/" + apk + ".log","w")
+    fp = open(os.path.join(log_path, apk + ".log"), "w")
     fp.write("Time lapsed: " + str(time_lapsed) + (" s\n\n"))
     fp.write(str(err,"utf-8"))
     fp.close()
