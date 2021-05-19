@@ -8,7 +8,7 @@ log_path = "new_log"
 
 def flowDroid(apk):
     start_time = time.time()
-    p = Popen(["java", "-jar", "soot-infoflow-cmd-jar-with-dependencies.jar", "-a", apk_path+"/"+apk,"-p","/home/theminer3746/Android/Sdk/platforms","-s","mergeSuSi.txt","-ct","120"], stdin=PIPE, stdout=PIPE, stderr=PIPE)
+    p = Popen(["java", "-jar", "soot-infoflow-cmd-jar-with-dependencies.jar", "-a", os.path.join(apk_path, apk),"-p","/home/theminer3746/Android/Sdk/platforms","-s","mergeSuSi.txt","-ct","120"], stdin=PIPE, stdout=PIPE, stderr=PIPE)
     output, err = p.communicate() 
     rc = p.returncode
     finish_time = time.time()
