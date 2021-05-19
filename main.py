@@ -184,9 +184,9 @@ try:
         print(json.dumps(payload))
         print('-----END JSON OUTPUT-----')
 
-    sys.exit(0)
+    exit(0)
 
 except Exception as e:
     print("An exception occurred")
     print(e)
-    sys.exit(1)
+    exit(1)
