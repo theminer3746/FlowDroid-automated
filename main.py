@@ -183,10 +183,10 @@ try:
     ]
 
     def getLeaks(final_cat_log_content):
-        ans = ["0" for a in pii_list]
+        ans = [False for a in pii_list]
         for line in final_cat_log_content:
             pii = line.strip()
-            ans[pii_list.index("static-"+pii)] = "1"
+            ans[pii_list.index("static-"+pii)] = True
 
         return ans
 
