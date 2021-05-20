@@ -217,9 +217,10 @@ try:
     payload['status'] = 'success'
     payload['appInfo'] = {
         'applicationId' : args.app_id,
-        'version' : version_name,
     }
     payload['result'] = result
+    payload['result']['applicationId'] = args.app_id
+    payload['result']['version'] = version_name
     payload['result']['testingMethod'] = 'STATIC_ONLY'
     print(payload)
 
