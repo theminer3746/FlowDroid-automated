@@ -216,7 +216,7 @@ try:
     payload = dict()
     payload['status'] = 'success'
     payload['appInfo'] = {
-        'applicationId' : args.app_id,
+        'identifier' : args.app_id,
     }
     payload['result'] = result
     payload['result']['applicationId'] = args.app_id
