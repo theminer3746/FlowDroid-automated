@@ -220,7 +220,7 @@ try:
         'version' : version_name,
     }
     payload['result'] = result
-    payload['testingMethods'] = 'STATIC_ONLY'
+    payload['testingMethod'] = 'STATIC_ONLY'
     print(payload)
 
 
