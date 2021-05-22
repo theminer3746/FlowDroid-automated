@@ -9,6 +9,19 @@ import requests as req
 import json
 import re
 
+# class EXIT_CODE:
+#     UNKNOWN_ERROR = 1
+#     DEVICE_OFFLINE = 2
+#     DYNAMIC_TEST_ERROR = 10
+#     TIMEOUT_ERROR = 11
+#     PAID_APP_ERROR = 12
+#     NOT_SUPPORTED_ERROR = 13
+#     GAMES_CAT_ERROR = 14
+#     APP_NOT_FOUND_ERROR = 15
+#     ANALYZER_ERROR = 20
+#     EXTERNAL_INTERFACE_ERROR = 30
+#     BAD_INPUT_ERROR = 40
+
 try:
     load_dotenv(find_dotenv())
 
@@ -53,8 +66,10 @@ try:
 
         return err.decode().split('\n')[:-1]
 
-    flowDroid_log = flowDroid(args.app_id)
-
+    if os.path.exists(os.path.join(apk_path, f"{args.app_id}.apk")):
+        flowDroid_log = flowDroid(args.app_id)
+    else:
+        raise FileNotFoundError()
 
     # Log transformation
     log_path = "final_log"
@@ -233,6 +248,10 @@ try:
         print('-----END JSON OUTPUT-----')
 
     exit(0)
+
+except FileNotFoundError:
+    print("Can not find apk file")
+    exit(15)
 
 except Exception as e:
     print("An exception occurred")
