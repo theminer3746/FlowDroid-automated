@@ -35,6 +35,9 @@ try:
     parser.add_argument('--timeout', metavar='timeout',
                     type=str, help='Maximum execution time', default=120)
 
+    parser.add_argument('--uuid', metavar='uuid',
+                    type=str, help='Uuid of the application to be sent to endpoint', default=None)
+
 
     if __name__ == '__main__':
         args = parser.parse_args()
@@ -237,6 +240,10 @@ try:
     payload['result']['applicationId'] = args.app_id
     payload['result']['version'] = version_name
     payload['result']['testingMethod'] = 'STATIC_ONLY'
+
+    if args.uuid:
+        payload['result']['uuid'] = args.uuid
+
     print(payload)
 
 
