@@ -242,7 +242,7 @@ try:
     payload['result']['testingMethod'] = 'STATIC_ONLY'
 
     if args.uuid:
-        payload['uuid'] = args.uuid
+        payload['result']['uuid'] = args.uuid
 
     print(payload)
 
